@@ -4,7 +4,7 @@ A Python recreation of the classic Asteroids arcade game, built with [pygame](ht
 
 ## Status
 
-🚧 Early stage — currently just initializes pygame and opens the game window. Gameplay (player ship, movement, asteroids, shooting, collisions) is not implemented yet.
+Early stage — currently just initializes pygame and opens the game window. Gameplay (player ship, movement, asteroids, shooting, collisions) is not implemented yet.
 
 ## Requirements
 
