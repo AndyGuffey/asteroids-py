@@ -1,6 +1,6 @@
 # Asteroids (Python)
 
-A Python recreation of the classic Asteroids arcade game, built with [pygame](https://www.pygame.org/). This is a work in progress from boot.dev's "Build a Video Game with Python" course.
+A Python recreation of the classic Asteroids arcade game, built with [pygame](https://www.pygame.org/). This is a work in progress from [boot.dev](https://www.boot.dev/u/ag)'s "Build a Video Game with Python" course.
 
 ## Status
 
