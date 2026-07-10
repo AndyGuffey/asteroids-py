@@ -4,7 +4,7 @@ A Python recreation of the classic Asteroids arcade game, built with [pygame](ht
 
 ## Status
 
-Early stage — pygame is initialized and opens the game window, running a basic game loop (event handling, black screen clear/flip, delta-time clock capped at 60 FPS) plus periodic game state logging. Gameplay (player ship, movement, asteroids, shooting, collisions) is not implemented yet.
+Early stage — pygame is initialized and opens the game window, running a basic game loop (event handling, black screen clear/flip, delta-time clock capped at 60 FPS) plus periodic game state logging. A `CircleShape` base sprite class exists as a foundation for game objects. Gameplay (player ship, movement, asteroids, shooting, collisions) is not implemented yet.
 
 ## Requirements
 
@@ -28,3 +28,4 @@ uv run main.py
 - `main.py` — entry point; sets up the pygame window and runs the main game loop
 - `constants.py` — game constants (screen size, etc.)
 - `logger.py` — writes periodic game state (`game_state.jsonl`) and event (`game_events.jsonl`) snapshots for debugging
+- `circleshape.py` — `CircleShape`, a base `pygame.sprite.Sprite` class for circular game objects (position, velocity, radius)
