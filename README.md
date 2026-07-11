@@ -30,3 +30,7 @@ uv run main.py
 - `logger.py` — writes periodic game state (`game_state.jsonl`) and event (`game_events.jsonl`) snapshots for debugging
 - `circleshape.py` — `CircleShape`, a base `pygame.sprite.Sprite` class for circular game objects (position, velocity, radius)
 - `player.py` — `Player`, extends `CircleShape` with a `triangle()` method describing the ship's shape
+
+## AI usage
+
+AI (Claude Code) was used to help write this README, summarize implemented changes, and draft pull request summaries.
