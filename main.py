@@ -12,15 +12,17 @@ dt = 0.0
 player = Player(x=SCREEN_WIDTH / 2, y=SCREEN_HEIGHT / 2)
 
 def game_loop(screen, player):
+    dt = 0.0
     while True:
         log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        player.update(dt)
         screen.fill("black")
         player.draw(screen)
         pygame.display.flip()
-        dt =+ clock.tick(60) / 1000  # Limit the frame rate to 60 FPS
+        dt = clock.tick(60) / 1000  # Limit the frame rate to 60 FPS
         # print(f"Delta time: {dt}") # debugging for delta time
 
 
