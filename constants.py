@@ -7,3 +7,6 @@ LINE_WIDTH =2
 
 # Turn speed
 PLAYER_TURN_SPEED = 300
+
+# player speed
+PLAYER_SPEED = 200
