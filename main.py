@@ -20,6 +20,7 @@ player = Player(x=SCREEN_WIDTH / 2, y=SCREEN_HEIGHT / 2)
 asteroid_field = AsteroidField()
 
 def game_loop(screen, updatable, drawable, asteroids):
+    # `log_state()` inspects caller locals; keep `asteroids` as a local name so it gets logged.
     dt = 0.0
     while True:
         log_state()
