@@ -12,14 +12,14 @@ clock = pygame.time.Clock()
 dt = 0.0 
 updatable = pygame.sprite.Group()
 drawable = pygame.sprite.Group()
-asteroid = pygame.sprite.Group()
+asteroids = pygame.sprite.Group()
 Player.containers = (updatable, drawable)
-Asteroid.containers = (updatable, drawable, asteroid)
+Asteroid.containers = (updatable, drawable, asteroids)
 AsteroidField.containers = (updatable,)
 player = Player(x=SCREEN_WIDTH / 2, y=SCREEN_HEIGHT / 2)
 asteroid_field = AsteroidField()
 
-def game_loop(screen, updatable, drawable):
+def game_loop(screen, updatable, drawable, asteroids):
     dt = 0.0
     while True:
         log_state()
@@ -39,7 +39,7 @@ def game_loop(screen, updatable, drawable):
 def main():
     pygame.init()
     clock.tick(dt)
-    game_loop(screen, updatable, drawable)
+    game_loop(screen, updatable, drawable, asteroids)
 
 
 
