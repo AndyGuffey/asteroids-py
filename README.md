@@ -4,7 +4,7 @@ A Python recreation of the classic Asteroids arcade game, built with [pygame](ht
 
 ## Status
 
-Early stage — pygame is initialized and opens the game window, running a basic game loop (event handling, black screen clear/flip, delta-time clock capped at 60 FPS) plus periodic game state logging. A `CircleShape` base sprite class exists as a foundation for game objects, with a `draw` method that renders a shape's triangle outline. A `Player` class (triangle-shaped ship, positioned at screen center) extends `CircleShape` and can rotate with the `A`/`D` keys and thrust forward/backward with `W`/`S`, updated each frame via `Player.update()`. Sprites register into `updatable`/`drawable`/`asteroid` groups (via each class's `containers`) that the game loop updates and draws each frame. An `Asteroid` class (circle-shaped) extends `CircleShape` and moves by its velocity each update, and an `AsteroidField` spawns asteroids of random size, position, and velocity at the screen edges on a timer. Each frame, the game loop checks player/asteroid collisions; on a hit it logs a `player_hit` event, prints "Game over!", and exits. Shooting is not implemented yet.
+Early stage — pygame is initialized and opens the game window, running a basic game loop (event handling, black screen clear/flip, delta-time clock capped at 60 FPS) plus periodic game state logging. A `CircleShape` base sprite class exists as a foundation for game objects, with a `draw` method that renders a shape's triangle outline. A `Player` class (triangle-shaped ship, positioned at screen center) extends `CircleShape` and can rotate with the `A`/`D` keys and thrust forward/backward with `W`/`S`, updated each frame via `Player.update()`. Sprites register into `updatable`/`drawable`/`asteroid` groups (via each class's `containers`) that the game loop updates and draws each frame. An `Asteroid` class (circle-shaped) extends `CircleShape` and moves by its velocity each update, and an `AsteroidField` spawns asteroids of random size, position, and velocity at the screen edges on a timer. Each frame, the game loop checks player/asteroid collisions; on a hit it logs a `player_hit` event, prints "Game over!", and exits. `Player` can fire a `Shot` with the spacebar; holding it down fires a constant stream of shots each frame (no fire-rate cooldown yet), and shots currently pass straight through asteroids with no collision handling.
 
 ## Controls
 
@@ -12,6 +12,7 @@ Early stage — pygame is initialized and opens the game window, running a basic
 - `D` — rotate right
 - `W` — thrust forward
 - `S` — thrust backward
+- `Space` — shoot (fires continuously while held; no cooldown yet)
 
 ## Requirements
 
@@ -39,6 +40,7 @@ uv run main.py
 - `player.py` — `Player`, extends `CircleShape` with a `triangle()` method describing the ship's shape, and `rotate()`/`move()`/`update()` methods handling turn and thrust input each frame
 - `asteroid.py` — `Asteroid`, extends `CircleShape` with its own `draw()`/`update()` overrides for a circular shape that moves by its velocity
 - `asteroidfield.py` — `AsteroidField`, spawns `Asteroid`s at random screen edges with random size/speed/direction on a timer
+- `shot.py` — `Shot`, extends `CircleShape` with its own `draw()`/`update()` for a bullet fired by the player that moves by its velocity
 
 ## AI usage
 

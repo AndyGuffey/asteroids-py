@@ -7,6 +7,7 @@ from logger import log_event
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+import shot
 
 
 set_mode = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT), flags=0, depth=0, display=0, vsync=0)
@@ -21,6 +22,8 @@ Asteroid.containers = (updatable, drawable, asteroids)
 AsteroidField.containers = (updatable,)
 player = Player(x=SCREEN_WIDTH / 2, y=SCREEN_HEIGHT / 2)
 asteroid_field = AsteroidField()
+shots = pygame.sprite.Group()
+shot.Shot.containers = (updatable, drawable, shots)
 
 def game_loop(screen, updatable, drawable, asteroids):
     # `log_state()` inspects caller locals; keep `asteroids` as a local name so it gets logged.
