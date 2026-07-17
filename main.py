@@ -43,7 +43,8 @@ def game_loop(screen, updatable, drawable, asteroids, shots):
                 if a.collides_with(s):
                     log_event("asteroid_shot")
                     s.kill()
-                    a.kill()
+                    if a.split():
+                        log_event("asteroid_split")
         screen.fill("black")
         for sprite in drawable:
             sprite.draw(screen)
