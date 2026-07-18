@@ -25,8 +25,8 @@ asteroid_field = AsteroidField()
 shots = pygame.sprite.Group()
 shot.Shot.containers = (updatable, drawable, shots)
 
-def game_loop(screen, updatable, drawable, asteroids):
-    # `log_state()` inspects caller locals; keep `asteroids` as a local name so it gets logged.
+def game_loop(screen, updatable, drawable, asteroids, shots):
+    # `log_state()` inspects caller locals; keep `asteroids`/`shots` as local names so they get logged.
     dt = 0.0
     while True:
         log_state()
@@ -51,7 +51,7 @@ def game_loop(screen, updatable, drawable, asteroids):
 def main():
     pygame.init()
     clock.tick(dt)
-    game_loop(screen, updatable, drawable, asteroids)
+    game_loop(screen, updatable, drawable, asteroids, shots)
 
 
 
