@@ -28,6 +28,8 @@ shot.Shot.containers = (updatable, drawable, shots)
 def game_loop(screen, updatable, drawable, asteroids, shots):
     # `log_state()` inspects caller locals; keep `asteroids`/`shots` as local names so they get logged.
     dt = 0.0
+    score = 0
+    font = pygame.font.Font(None, 36)
     while True:
         log_state()
         for event in pygame.event.get():
@@ -36,18 +38,21 @@ def game_loop(screen, updatable, drawable, asteroids, shots):
         updatable.update(dt)
         for a in asteroids:
             if a.collides_with(player):
-                log_event("player_hit")
-                print("Game over!")
+                log_event("player_hit", score=score)
+                print(f"Game over! Final score: {score}")
                 sys.exit()
             for s in shots:
                 if a.collides_with(s):
-                    log_event("asteroid_shot")
+                    score += a.score_value()
+                    log_event("asteroid_shot", score=score)
                     s.kill()
                     if a.split():
                         log_event("asteroid_split")
         screen.fill("black")
         for sprite in drawable:
             sprite.draw(screen)
+        score_surface = font.render(f"Score: {score}", True, "white")
+        screen.blit(score_surface, (10, 10))
         pygame.display.flip()
         dt = clock.tick(60) / 1000  # Limit the frame rate to 60 FPS
         # print(f"Delta time: {dt}") # debugging for delta time

@@ -1,7 +1,13 @@
 import pygame
 import random
 from circleshape import CircleShape
-from constants import LINE_WIDTH, ASTEROID_MIN_RADIUS
+from constants import (
+    LINE_WIDTH,
+    ASTEROID_MIN_RADIUS,
+    SCORE_ASTEROID_SMALL,
+    SCORE_ASTEROID_MEDIUM,
+    SCORE_ASTEROID_LARGE,
+)
 
 # Asteroid Class that inherits from CircleShape
 class Asteroid(CircleShape):
@@ -13,7 +19,15 @@ class Asteroid(CircleShape):
 
     def update(self, dt: float) -> None:
         self.position += self.velocity * dt
-    
+
+    def score_value(self) -> int:
+        # Smaller asteroids are worth more points since they're harder to hit
+        if self.radius <= ASTEROID_MIN_RADIUS:
+            return SCORE_ASTEROID_SMALL
+        if self.radius <= ASTEROID_MIN_RADIUS * 2:
+            return SCORE_ASTEROID_MEDIUM
+        return SCORE_ASTEROID_LARGE
+
     def split(self) -> list["Asteroid"]:
         # Imemediately kill itself
         self.kill()
