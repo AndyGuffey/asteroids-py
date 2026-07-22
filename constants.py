@@ -11,6 +11,9 @@ PLAYER_TURN_SPEED = 300
 # player speed
 PLAYER_SPEED = 200
 
+# player acceleration (thrust rate; PLAYER_SPEED acts as the resulting speed cap)
+PLAYER_ACCELERATION = 300
+
 # Asteroid
 ASTEROID_MIN_RADIUS = 20
 ASTEROID_KINDS = 3
