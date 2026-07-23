@@ -4,6 +4,8 @@ from circleshape import CircleShape
 from constants import (
     LINE_WIDTH,
     ASTEROID_MIN_RADIUS,
+    ASTEROID_VERTEX_COUNT,
+    ASTEROID_RADIUS_VARIANCE,
     SCORE_ASTEROID_SMALL,
     SCORE_ASTEROID_MEDIUM,
     SCORE_ASTEROID_LARGE,
@@ -13,9 +15,23 @@ from constants import (
 class Asteroid(CircleShape):
     def __init__(self, x: float, y: float, radius: float) -> None:
         super().__init__(x, y, radius)
+        # Per-vertex radius multipliers, fixed at creation so the lumpy outline
+        # doesn't jitter between frames. Collision still uses the plain circle radius.
+        self.vertex_offsets = [
+            random.uniform(1 - ASTEROID_RADIUS_VARIANCE, 1 + ASTEROID_RADIUS_VARIANCE)
+            for _ in range(ASTEROID_VERTEX_COUNT)
+        ]
 
     def draw(self, screen: pygame.Surface) -> None:
-        pygame.draw.circle(screen, "white", self.position, self.radius, LINE_WIDTH)
+        pygame.draw.polygon(screen, "white", self._outline_points(), LINE_WIDTH)
+
+    def _outline_points(self) -> list[pygame.Vector2]:
+        angle_step = 360 / ASTEROID_VERTEX_COUNT
+        return [
+            self.position
+            + pygame.Vector2(0, 1).rotate(angle_step * i) * self.radius * offset
+            for i, offset in enumerate(self.vertex_offsets)
+        ]
 
     def update(self, dt: float) -> None:
         self.position += self.velocity * dt
