@@ -8,6 +8,9 @@ from constants import (
     PLAYER_ACCELERATION,
     PLAYER_SHOOT_SPEED,
     PLAYER_SHOOT_COOLDOWN_SECONDS,
+    PLAYER_RESPAWN_INVULNERABILITY_SECONDS,
+    PLAYER_INVULNERABILITY_BLINK_HZ,
+    LINE_WIDTH,
 )
 from shot import Shot
 
@@ -18,6 +21,7 @@ class Player(CircleShape):
         self.rotation = 0
         self.name = "Player"
         self.shot_cooldown = 0
+        self.invulnerable_timer = 0.0
 
     def triangle(self) -> list[pygame.Vector2]:
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -26,7 +30,23 @@ class Player(CircleShape):
         b = self.position - forward * self.radius - right
         c = self.position - forward * self.radius + right
         return [a, b, c]
-    
+
+    def draw(self, screen: pygame.Surface) -> None:
+        # Blink while invulnerable instead of drawing every frame
+        if self.is_invulnerable and int(self.invulnerable_timer * PLAYER_INVULNERABILITY_BLINK_HZ) % 2 == 0:
+            return
+        pygame.draw.polygon(screen, "white", self.triangle(), LINE_WIDTH)
+
+    @property
+    def is_invulnerable(self) -> bool:
+        return self.invulnerable_timer > 0
+
+    def respawn(self, x: float, y: float) -> None:
+        self.position = pygame.Vector2(x, y)
+        self.velocity = pygame.Vector2(0, 0)
+        self.rotation = 0
+        self.invulnerable_timer = PLAYER_RESPAWN_INVULNERABILITY_SECONDS
+
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
 
@@ -40,6 +60,7 @@ class Player(CircleShape):
             self.shoot()
         self.move(dt)
         self.shot_cooldown -= dt
+        self.invulnerable_timer = max(0.0, self.invulnerable_timer - dt)
 
     def move(self, dt: float) -> None:
         # this method will take dt and apply thrust, accelerating/decelerating the

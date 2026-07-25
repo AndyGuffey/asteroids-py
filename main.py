@@ -1,7 +1,7 @@
 import sys
 
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_STARTING_LIVES
 from logger import log_state
 from logger import log_event
 from player import Player
@@ -29,6 +29,7 @@ def game_loop(screen, updatable, drawable, asteroids, shots):
     # `log_state()` inspects caller locals; keep `asteroids`/`shots` as local names so they get logged.
     dt = 0.0
     score = 0
+    lives = PLAYER_STARTING_LIVES
     font = pygame.font.Font(None, 36)
     while True:
         log_state()
@@ -37,10 +38,14 @@ def game_loop(screen, updatable, drawable, asteroids, shots):
                 return
         updatable.update(dt)
         for a in asteroids:
-            if a.collides_with(player):
-                log_event("player_hit", score=score)
-                print(f"Game over! Final score: {score}")
-                sys.exit()
+            if a.collides_with(player) and not player.is_invulnerable:
+                lives -= 1
+                log_event("player_hit", lives=lives, score=score)
+                if lives <= 0:
+                    print(f"Game over! Final score: {score}")
+                    sys.exit()
+                player.respawn(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+                log_event("player_respawn", lives=lives)
             for s in shots:
                 if a.collides_with(s):
                     score += a.score_value()
@@ -52,7 +57,9 @@ def game_loop(screen, updatable, drawable, asteroids, shots):
         for sprite in drawable:
             sprite.draw(screen)
         score_surface = font.render(f"Score: {score}", True, "white")
+        lives_surface = font.render(f"Lives: {lives}", True, "white")
         screen.blit(score_surface, (10, 10))
+        screen.blit(lives_surface, (10, 50))
         pygame.display.flip()
         dt = clock.tick(60) / 1000  # Limit the frame rate to 60 FPS
         # print(f"Delta time: {dt}") # debugging for delta time
