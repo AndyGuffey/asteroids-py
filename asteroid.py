@@ -3,8 +3,6 @@ import random
 from circleshape import CircleShape
 from constants import (
     LINE_WIDTH,
-    SCREEN_WIDTH,
-    SCREEN_HEIGHT,
     ASTEROID_MIN_RADIUS,
     ASTEROID_VERTEX_COUNT,
     ASTEROID_RADIUS_VARIANCE,
@@ -37,19 +35,7 @@ class Asteroid(CircleShape):
 
     def update(self, dt: float) -> None:
         self.position += self.velocity * dt
-        self._wrap_position()
-
-    def _wrap_position(self) -> None:
-        # Wrap around screen edges instead of drifting off into empty space,
-        # using this asteroid's own radius so it's fully off-screen before it reappears
-        if self.position.x < -self.radius:
-            self.position.x = SCREEN_WIDTH + self.radius
-        elif self.position.x > SCREEN_WIDTH + self.radius:
-            self.position.x = -self.radius
-        if self.position.y < -self.radius:
-            self.position.y = SCREEN_HEIGHT + self.radius
-        elif self.position.y > SCREEN_HEIGHT + self.radius:
-            self.position.y = -self.radius
+        self.wrap_position()
 
     def score_value(self) -> int:
         # Smaller asteroids are worth more points since they're harder to hit
