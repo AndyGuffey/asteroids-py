@@ -3,6 +3,7 @@ import pygame
 from circleshape import CircleShape
 from constants import (
     PLAYER_RADIUS,
+    PLAYER_COLOR,
     PLAYER_TURN_SPEED,
     PLAYER_SPEED,
     PLAYER_ACCELERATION,
@@ -35,7 +36,7 @@ class Player(CircleShape):
         # Blink while invulnerable instead of drawing every frame
         if self.is_invulnerable and int(self.invulnerable_timer * PLAYER_INVULNERABILITY_BLINK_HZ) % 2 == 0:
             return
-        pygame.draw.polygon(screen, "white", self.triangle(), LINE_WIDTH)
+        pygame.draw.polygon(screen, PLAYER_COLOR, self.triangle(), LINE_WIDTH)
 
     @property
     def is_invulnerable(self) -> bool:

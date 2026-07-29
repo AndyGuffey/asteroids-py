@@ -6,7 +6,7 @@ A Python recreation of the classic Asteroids arcade game, built with [pygame](ht
 
 Playable core loop — fly a ship, shoot asteroids, and survive as long as possible. See [Project structure](#project-structure) below for how each piece is implemented.
 
-- Ship rotates and thrusts with momentum-based acceleration (capped at a max speed), and fires rate-limited shots
+- Ship rotates and thrusts with momentum-based acceleration (capped at a max speed), fires rate-limited shots, and is drawn in a distinct color (cyan) from asteroids/shots (white)
 - Asteroids spawn at random screen edges, split into smaller pieces when shot, and render as lumpy, non-circular polygons
 - Asteroids and shots wrap around screen edges instead of disappearing (the player doesn't yet — see Future updates)
 - Destroying an asteroid scores points (smaller asteroids are worth more), shown on screen

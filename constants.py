@@ -3,6 +3,7 @@ SCREEN_HEIGHT = 720
 
 # Player
 PLAYER_RADIUS = 20
+PLAYER_COLOR = "cyan"
 LINE_WIDTH =2
 
 # Turn speed
