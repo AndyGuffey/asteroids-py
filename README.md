@@ -9,7 +9,7 @@ Playable core loop — fly a ship, shoot asteroids, and survive as long as possi
 - Ship rotates and thrusts with momentum-based acceleration (capped at a max speed), fires rate-limited shots, and is drawn in a distinct color (cyan) from asteroids/shots (white)
 - Asteroids spawn at random screen edges, split into smaller pieces when shot, and render as lumpy, non-circular polygons
 - Asteroids and shots wrap around screen edges instead of disappearing (the player doesn't yet — see Future updates)
-- Destroying an asteroid scores points (smaller asteroids are worth more), shown on screen
+- Destroying an asteroid scores points (smaller asteroids are worth more), shown on screen, and triggers a brief particle explosion effect
 - Player has multiple lives; getting hit respawns the ship at screen center with brief blinking invulnerability instead of ending the game immediately
 - Game state and events are logged to `game_state.jsonl` / `game_events.jsonl` for debugging
 
@@ -41,17 +41,17 @@ uv run main.py
 ## Project structure
 
 - `main.py` — entry point; sets up the pygame window, sprite groups (`updatable`/`drawable`/`asteroid`), and runs the main game loop
-- `constants.py` — game constants (screen size, player radius, line width, turn speed, player speed/acceleration, lives/respawn invulnerability, asteroid sizes/spawn rate/shape, shot speed/cooldown, scoring values, etc.)
+- `constants.py` — game constants (screen size, player radius, line width, turn speed, player speed/acceleration, lives/respawn invulnerability, asteroid sizes/spawn rate/shape, shot speed/cooldown, scoring values, explosion effect, etc.)
 - `logger.py` — writes periodic game state (`game_state.jsonl`) and event (`game_events.jsonl`) snapshots for debugging
 - `circleshape.py` — `CircleShape`, a base `pygame.sprite.Sprite` class for circular game objects (position, velocity, radius), providing a shared `wrap_position()` for wrapping around screen edges
 - `player.py` — `Player`, extends `CircleShape` with a `triangle()` method describing the ship's shape, `rotate()`/`move()`/`update()` methods handling turn and thrust input each frame, and `respawn()`/`is_invulnerable` for resetting the ship after a hit with temporary (blinking) invulnerability
 - `asteroid.py` — `Asteroid`, extends `CircleShape` with its own `draw()`/`update()` overrides, rendering a lumpy polygon outline (via `_outline_points()`) that moves by its velocity and wraps around the screen edges, plus `score_value()` returning the points awarded for destroying it based on its size
 - `asteroidfield.py` — `AsteroidField`, spawns `Asteroid`s at random screen edges with random size/speed/direction on a timer
 - `shot.py` — `Shot`, extends `CircleShape` with its own `draw()`/`update()` for a bullet fired by the player that moves by its velocity and wraps around the screen edges
+- `explosion.py` — `Explosion`, a short-lived particle burst spawned where an asteroid is destroyed; particles fly outward and shrink over `EXPLOSION_DURATION_SECONDS` before the sprite kills itself
 
 ## Future updates
 
-- Add an explosion effect for the asteroids
 - Make the player wrap around the screen instead of disappearing
 - Add a background image
 - Create different weapon types
