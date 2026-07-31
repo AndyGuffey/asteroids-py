@@ -66,14 +66,18 @@ uv run main.py
 
 - Add an intro menu
 - Add a pause menu
+  - Audio, Video settings options
+- Add game over screen
 
 ### Art
 
 - Add a background image
+  - effects change based on power ups or lifes left
 
 ### Sound
 
 - Add sound effects for shots, bombs, and explosions
+- Add music while user is playing
 
 ## AI usage
 
