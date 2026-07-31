@@ -55,11 +55,25 @@ uv run main.py
 
 ## Future updates
 
+### Mechanics
+
 - Make the player wrap around the screen instead of disappearing
-- Add a background image
 - Create different weapon types
 - Add a shield power-up
 - Add a speed power-up
+
+### Functionality
+
+- Add an intro menu
+- Add a pause menu
+
+### Art
+
+- Add a background image
+
+### Sound
+
+- Add sound effects for shots, bombs, and explosions
 
 ## AI usage
 
