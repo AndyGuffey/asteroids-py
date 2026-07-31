@@ -35,6 +35,14 @@ SHOT_RADIUS = 5
 PLAYER_SHOOT_SPEED = 500
 PLAYER_SHOOT_COOLDOWN_SECONDS = 0.3
 
+# Bomb - dropped stationary at the player's position, detonates after a fuse
+# delay and destroys every asteroid within its blast radius
+BOMB_RADIUS = 6
+BOMB_COLOR = "red"
+BOMB_FUSE_SECONDS = 1.5
+BOMB_BLAST_RADIUS = 150
+PLAYER_BOMB_COOLDOWN_SECONDS = 3.0
+
 # Scoring - smaller asteroids are worth more points
 SCORE_ASTEROID_SMALL = 100
 SCORE_ASTEROID_MEDIUM = 50
