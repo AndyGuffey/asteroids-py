@@ -9,6 +9,7 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from explosion import Explosion
 from bomb import Bomb
+from menu import run_intro_menu
 import shot
 
 
@@ -88,6 +89,8 @@ def game_loop(screen, updatable, drawable, asteroids, shots, bombs):
 def main():
     pygame.init()
     clock.tick(dt)
+    if not run_intro_menu(screen, clock):
+        return
     game_loop(screen, updatable, drawable, asteroids, shots, bombs)
 
 

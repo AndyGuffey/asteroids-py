@@ -6,6 +6,7 @@ A Python recreation of the classic Asteroids arcade game, built with [pygame](ht
 
 Playable core loop — fly a ship, shoot asteroids, and survive as long as possible. See [Project structure](#project-structure) below for how each piece is implemented.
 
+- A basic intro menu (title, blinking "Press SPACE to start" prompt, and a controls reminder) is shown before the game begins
 - Ship rotates and thrusts with momentum-based acceleration (capped at a max speed), fires rate-limited shots, is drawn in a distinct color (cyan) from asteroids/shots (white), and collides using its actual triangular shape rather than a bounding circle
 - Asteroids spawn at random screen edges, split into smaller pieces when shot, and render as lumpy, non-circular polygons
 - Asteroids and shots wrap around screen edges instead of disappearing (the player doesn't yet — see Future updates)
@@ -42,7 +43,8 @@ uv run main.py
 
 ## Project structure
 
-- `main.py` — entry point; sets up the pygame window, sprite groups (`updatable`/`drawable`/`asteroid`), and runs the main game loop
+- `main.py` — entry point; sets up the pygame window, sprite groups (`updatable`/`drawable`/`asteroid`), shows the intro menu, and runs the main game loop
+- `menu.py` — `run_intro_menu()`, a blocking loop shown before gameplay starts that displays the title/prompt/controls and returns once the player presses `Space` (or `False` if the window is closed)
 - `constants.py` — game constants (screen size, player radius, line width, turn speed, player speed/acceleration, lives/respawn invulnerability, asteroid sizes/spawn rate/shape, shot speed/cooldown, bomb fuse/blast radius/cooldown, scoring values, explosion effect, etc.)
 - `logger.py` — writes periodic game state (`game_state.jsonl`) and event (`game_events.jsonl`) snapshots for debugging
 - `circleshape.py` — `CircleShape`, a base `pygame.sprite.Sprite` class for circular game objects (position, velocity, radius), providing a shared `wrap_position()` for wrapping around screen edges and a `collides_with()` that tests against a triangular hitbox (via circle-triangle intersection) when the other object exposes a `triangle()` method, falling back to a plain circle-circle check otherwise
@@ -64,7 +66,6 @@ uv run main.py
 
 ### Functionality
 
-- Add an intro menu
 - Add a pause menu
   - Audio, Video settings options
 - Add game over screen
